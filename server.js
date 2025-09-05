@@ -7,11 +7,21 @@ const compression = require('compression');
 
 
 const app = express();
+// app.use(cors({
+//   origin: [
+//     'https://Ritorr7.github.io',
+//     'https://Ritorr7.github.io/sevicol'
+//   ]
+// }));
 app.use(cors({
-  origin: [
-    'https://Ritorr7.github.io',
-    'https://Ritorr7.github.io/sevicol'
-  ]
+  origin: (origin, cb) => {
+    if (!origin || allowed.includes(origin)) {
+      cb(null, true);
+    } else {
+      cb(new Error("No permitido por CORS"));
+    }
+  },
+  credentials: false
 }));
 // app.use(cors());
 app.use(express.json());
